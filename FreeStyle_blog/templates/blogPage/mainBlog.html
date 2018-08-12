@@ -1,0 +1,176 @@
+{% extends 'blogPage/base.html' %}
+
+{% block sty %}
+    .articleBody{
+        height: 100px;
+        overflow: hidden;
+        margin: 0px 0px 2px 0px;
+    }
+    .avatar{
+        width: 70px;
+        height: 70px;
+        float: left;
+        margin: 0px 5px 0px 0px;
+    }
+    .artCotent{
+        font-size: 14px;
+        height: 70px;
+    }
+    .title{
+        display: block;
+        font-size: 16px;
+        margin: 3px 0px;
+        color: #20c997;
+    }
+    .btn{
+        font-size: 13px;
+    }
+    .btcontain{
+        margin: 0px 3px 0px 0px;
+    }
+{% endblock %}
+
+{% block mainbody %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-8">
+                {% for article_obj in article_list %}
+                    <div class="downline" btn="{{ article_obj.nid }} {{ article_obj.blog.user.nid }}" sessionData="{{ session_obj }}">
+
+                        <div class="articleBody">
+                            <div>
+                                <a href="/personalHomePage/{{ article_obj.blog.site }}/{{ article_obj.nid }}/" class="title">{{ article_obj.title }}</a>
+                                <img src="/{{ article_obj.blog.user.avatar }}" alt="" class="img-thumbnail avatar">
+                                <div class="artotent text-justify">{{ article_obj.summary }}</div>
+                            </div>
+                        </div>
+                        <span class="btn">
+                        <span class="fa fa-user-o btcontain"></span>
+                        <a href="/personalHomePage/{{ article_obj.blog.site }}/" class="btcontain">{{ article_obj.blog.title }}</a>
+                        <span class="btcontain">{{ article_obj.create_time|date:"Y-m-d" }}</span>
+                        <a class="fa fa-commenting-o btcontain"></a>
+                        <span class="btcontain comment">{{ article_obj.comment_count }}</span>
+                        <span class="fa fa-thumbs-o-up btcontain up"></span>
+                        <span class="btcontain up_count">{{ article_obj.up_count }}</span>
+                        </span>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="col-4">
+                <div class="list-group hotline">
+                      <a href="#" class="list-group-item list-group-item-info">
+                        热门推荐
+                      </a>
+                      {% for obj in article_obj %}
+                        <a href="/personalHomePage/{{ obj.blog.site }}/{{ obj.nid }}/" class="list-group-item list-group-item-action">{{ obj.title }}</a>
+                      {% endfor %}
+                </div>
+            </div>
+
+        </div>
+
+        <nav aria-label="Page navigation example">
+          <ul class="pagination">
+              {% for pager in pager_obj.page_str %}
+                {{ pager | safe }}
+              {% endfor %}
+          </ul>
+        </nav>
+    </div>
+
+{% endblock %}
+
+<script>
+    $(function () {
+        giveLike();
+        sessionConfirm();
+
+    });
+    function giveLike() {
+        console.log($(this).parent().attr('sessionData'));
+       $('.up').click(function () {
+           console.log($(this).parent())
+           var sessionData = $(this).parent().attr('sessionData');
+           console.log((sessionData))
+           if(sessionData){
+               articleData = $(this).parent().attr('btn');
+               user_data = {'sessionData':sessionData,'articleData':articleData}
+               console.log('aaaaaaaaaaaaaaa')
+               submitBtn(this,user_data)
+           }else {
+               window.open('/login.html')
+           }
+       })
+    }
+
+    function submitBtn(th,user_data) {
+        var tag = $(th).next();
+        $.ajax({
+               url:'/giveLike/',
+               type:'GET',
+               data:user_data,
+                dataType:'JSON',
+               success:function (arg) {
+                   console.log(arg)
+                   $(th).next().text(arg['data'])
+               }
+           })
+    }
+
+    function sessionConfirm() {
+        var sessionData = $('.downline').attr('sessionData');
+        if (sessionData){
+            var tag = document.createElement('span');
+            tag.innerHTML=sessionData;
+            $('#loginAndSignLine').innerHTML.clear().append(tag)
+
+        }
+    }
+
+</script>
+
+{% block upComment %}
+    $(function () {
+        giveLike();
+        sessionConfirm();
+    });
+    function giveLike() {
+       $('.up').click(function () {
+           var sessionData = $(this).parent().parent().attr('sessionData');
+           console.log(sessionData)
+           if(sessionData != 'None'){
+               articleData = $(this).parent().parent().attr('btn');
+               user_data = {'sessionData':sessionData,'articleData':articleData}
+               submitBtn(this,user_data)
+           }else {
+               window.open('/login.html')
+           }
+       })
+    }
+
+    function submitBtn(th,user_data) {
+        var tag = $(th).next();
+        $.ajax({
+               url:'/giveLike/',
+               type:'GET',
+               data:user_data,
+               dataType:'JSON',
+               success:function (arg) {
+               console.log('1231321231')
+                   $(th).next().text(arg["data"])
+               }
+           })
+    }
+    function sessionConfirm() {
+        var sessionData = $('.downline').attr('sessionData');
+        console.log('..........')
+        console.log(sessionData)
+        if (sessionData != 'None'){
+            $('#loginAndSignLine').children().remove()
+            $('#loginAndSignLine').text('Wellcome'+' '+sessionData)
+            console.log($('#loginAndSignLine').text())
+        }
+    }
+
+{% endblock %}

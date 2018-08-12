@@ -1,0 +1,39 @@
+{% extends 'blogManagement/layout.html' %}
+
+
+
+{% block backendContent %}
+
+    <form action="/backendManagement/{{ blogSite }}/createTrouble.html/" method="post" enctype="multipart/form-data">
+        <div>
+            <label>标题</label>
+            <p>{{ troubleFormObj.title }}</p>{{ troubleFormObj.errors.title.0 }}
+        </div>
+        <div>
+            <label>详情</label>
+            <p>{{ troubleFormObj.detail }}</p>{{ troubleFormObj.errors.detail.0 }}
+        </div>
+        <div>
+            <label>图片</label>
+            <p>{{ troubleFormObj.image }}</p>{{ troubleFormObj.errors.image.0 }}
+        </div>
+        <input type="submit" value="提交">
+    </form>
+
+{% endblock %}
+
+{% block articalJs %}
+    <script>
+        $(function () {
+            initKindEditor();
+        });
+        function initKindEditor() {
+           var kind = KindEditor.create('#trouble',{
+               width:'100%',
+               height:'200px',
+               minWidth:200,
+               minHeight:200
+           })
+        }
+    </script>
+{% endblock %}

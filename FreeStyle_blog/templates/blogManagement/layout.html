@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static '/css/layout.css' %}">
+
+    <link rel="stylesheet" href="{% static 'plugins/bootstrap/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'plugins/font-awesome/css/font-awesome.css' %}">
+    <style>
+        *{
+            margin: 0;
+        }
+        .head-title{
+            height: 60px;
+            background: #60c9ba;
+            min-width: 1100px;
+            line-height: 60px;
+            color: white;
+        }
+        .right{
+            float: right;
+        }
+        .left{
+            float: left;
+        }
+        .head-tag{
+            width: 18%;
+            background: #57ac9d;
+            text-align: center;
+            font-size: 20px;
+        }
+        .head-list,.head-opreate{
+            font-size: 14px;
+            color: white;
+        }
+        .head-title .head-list .title{
+            color: white;
+            padding: 0 10px;
+            display: inline-block;
+        }
+        .head-title .head-list .title:hover{
+            background: #57ac9d;
+        }
+        .head-title .head-list .title-list{
+            display: inline-block;
+            position: relative;
+        }
+        .head-title .head-list .title-list .child-title{
+            position: absolute;
+            background: #9fcdff;
+            width: 69px;
+            height: 120px;
+            text-align: center;
+            display: none;
+        }
+        .head-title .head-list .title-list .child-title a{
+            display: block;
+            line-height: 30px;
+        }
+        .head-title .head-list .title-list:hover .child-title{
+            display: block;
+        }
+        .head-opreate .user-image{
+            display: inline-block;
+            line-height: 30px;
+            float: right;
+            position: relative;
+            top: 8px;
+        }
+        .user-image .image-mainu{
+            position: absolute;
+            top: 44px;
+            width: 56px;
+            right: -14px;
+            display: none;
+            background: #b3d7ff;
+        }
+        .head-opreate .user-image:hover .image-mainu{
+            display: inline-block;
+        }
+        .head-opreate .user-image .image-one{
+            float: right;
+            border-radius: 50%;
+            top: 4px;
+
+        }
+
+        .head-title .head-opreate{
+            padding: 0 20px;
+        }
+        .head-title .head-opreate .operate{
+            display: inline-block;
+            padding: 0 10px;
+            color: white;
+        }
+        .head-title .head-opreate .operate:hover{
+            background: #57ac9d;
+        }
+        .pg-body .mainu{
+            position: absolute;
+            width: 223px;
+            background: #f2f8ff;
+            bottom: 0;
+            left: 0;
+            top: 60px;
+            color: #60c9ba;
+            text-align: center;
+            padding: 20px 0;
+        }
+        .pg-body .content{
+            position: absolute;
+            top: 60px;
+            bottom: 0;
+            left: 229px;
+            right: 0;
+            overflow: scroll;
+            background: rgba(38, 54, 35, 0.06);
+        }
+        .pg-body .mainu .mainu-list a{
+            display: block;
+        }
+        .pg-body .mainu .mainu-list{
+            display: none;
+        }
+        .pg-body .mainu .mainu-title{
+            margin: 4px 0;
+        }
+
+        .pg-content-mainu{
+            line-height: 40px;
+            margin: 0 10px;
+            border-bottom: lightgrey 1px dashed;
+            font-size: 15px;
+        }
+        .search-title{
+            border-bottom: lightgrey 1px dashed;
+            background: white;
+            line-height: 40px;
+            font-size: 13px;
+        }
+        .search-list{
+            height: 100px;
+            background: white;
+        }
+
+        .search-list .search-condions{
+            padding: 10px;
+            font-size: 14px;
+        }
+        .search-list .search-condions span{
+            margin: 0 10px;
+        }
+        .search-list .search-condions span a{
+            margin: 0 10px;
+        }
+        .result-list{
+            background: white;
+        }
+        .article-operate span{
+            background: #77a4bf;
+            font-size: 12px;
+            color: white;
+            display: inline-block;
+            width: 45px;
+            line-height: 25px;
+            border-radius: 10%;
+            text-align: center;
+        }
+        .pg-content-search .result-title{
+            line-height: 40px;
+            font-size: 13px;
+        }
+        .pg-content-search .result-title span{
+            display: inline-block;
+            margin: 0 4px;
+            line-height: 20px;
+        }
+        .pg-content-search .result-title .create-article-btn{
+            display: inline-block;
+            background: #60c9ba;
+            float: right;
+            margin: 0 6px;
+            color: white;
+            font-size: 13px;
+        }
+        .pg-content-search .result-title .create-article-btn:hover{
+            background: #57ac9d;
+        }
+    </style>
+    {% block articleCss %}
+
+    {% endblock %}
+</head>
+<body>
+
+<div class="text"></div>
+<div class="head-title">
+    
+    <div class="head-tag left">FreeStyle技术博客</div>
+    
+    <div class="head-list left">
+        <a href="/mainBlog/" class="title">博客首页</a>
+        <a class="title">标题一</a>
+        <a class="title">标题一</a>
+        <div class="title-list">
+            <a href="/personalHomePage/{{ login_obj.blog.site }}/">个人首页</a>
+            <div class="child-title">
+                <a href="">菜单一 </a>
+                <a href="">菜单二</a>
+                <a href="">菜单三</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="head-opreate right">
+        <a class="operate" href="">任务</a>
+        <a class="operate" href="">通知</a>
+        <a class="operate" href="">消息</a>
+        <div class="user-image">
+            <img class="image-one" src="/static/userImage/default.png" alt="">
+            <div class="image-mainu">
+                <a href="">菜单一 </a>
+                <a href="">菜单二</a>
+                <a href="">菜单三</a>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="pg-body">
+    <div class="mainu">
+        <div class="mainu-title">文章管理</div>
+        <div class='mainu-list'>
+            <a href="/backendManagement/{{ blogSite }}/">文章管理</a>
+        </div>
+        <div class="mainu-title">分类管理</div>
+        <div class='mainu-list'>
+            <a href="">文章管理</a>
+        </div>
+        <div class="mainu-title">标签管理</div>
+        <div class='mainu-list'>
+            <a href="">文章管理</a>
+        </div>
+        <div class="mainu-title">个人信息</div>
+        <div class='mainu-list'>
+            <a href="">文章管理</a>
+        </div>
+        <div class="mainu-title">保障信息</div>
+        <div class="mainu-list">
+            <a href="/backendManagement/{{ blogSite }}/troubleList.html/">报障清单</a>
+            <a href="">文章管理</a>
+        </div>
+    </div>
+    <div class="content">
+        {% block backendContent %}
+        <div class="pg-content-mainu">
+            <a href="">文章管理</a>/
+            <a href="">文章列表</a>
+        </div>
+        <div class="pg-content-search">
+            <div class="search-title">
+                <span class="fa fa-search"></span>搜索条件
+            </div>
+
+            <div class="search-list">
+                <div class="search-condions">
+                    <span>全部</span>
+                    <span>
+                        {% for blog_category in article_obj.type_choices %}
+                        <a href="/backendManagement/{{ blogSite }}/blog-{{ blog_category.0 }}/">{{ blog_category.1 }}</a>
+                        {% endfor %}
+                    </span>
+                </div>
+                <div class="search-condions">
+                    <span>全部</span>
+                    <span>
+                        {% for article_category in article_category_obj  %}
+                        <a href="/backendManagement/{{ blogSite }}/category-{{ article_category.nid }}/">{{ article_category.title }}</a>
+                        {% endfor %}
+                    </span>
+                </div>
+            </div>
+            <div class="result-title">
+                <span class="fa fa-book"></span>
+                <span class="search-article"></span>搜索文章()
+                <a href="/backendManagement/{{ blogSite }}/createArticle.html/" class="create-article-btn">
+                    <span class="fa fa-plus"></span>
+                    <span>创建新文章</span>
+                </a>
+            
+
+            </div>
+            <div class="result-list">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">文章标题</th>
+                            <th scope="col">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for article_obj in article_category_list %}
+                        <tr>
+                            <td>{{ article_obj.title }}</td>
+                            <td class="article-operate">
+                                <span class="fa fa-remove">删除</span>|
+                                <span class="fa fa-edit">编辑</span>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+        {% endblock %}
+    </div>
+</div>
+
+
+
+
+<script src="/static/js/jquery-3.3.1.min.js"></script>
+<script src="/static/plugins/bootstrap/js/bootstrap.js"></script>
+<script src="{% static 'plugins/kindeditor-4.1.10/kindeditor-all.js' %}"></script>
+<script>
+    $(function () {
+        MainuShow();
+    });
+    function MainuShow() {
+        $('.mainu-title').on('click',$('.mainu-list'),function () {
+            if($(this).next().css('display')==='none'){
+                $('.mainu-list').css('display','none');
+                $(this).next().css('display','block');
+            }else {
+                $(this).next().css('display','none');
+            }
+        })
+    }
+</script>
+{% block articalJs %}
+
+{% endblock %}
+
+</body>
+</html>

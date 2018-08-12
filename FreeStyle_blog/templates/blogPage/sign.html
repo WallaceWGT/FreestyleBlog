@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    {% load staticfiles %}
+    <link rel="stylesheet" href="/static/plugins/bootstrap/css/bootstrap.css">
+</head>
+<body>
+<div>
+
+    <form class="container" href="/sign.html" method="post">
+      <div class="form-group">
+        <label for="exampleInputPassword1">用户名</label>
+        {{ sign_obj.username }}{{ sign_obj.errors.username.0 }}{{ verify_data.message }}
+      </div>
+        <div class="form-group">
+        <label for="exampleInputPassword1">密码</label>
+            {{ sign_obj.password }}{{ sign_obj.errors.password.0 }}{{ sign_obj.non_field_errors.0 }}
+      </div>
+        <div class="form-group">
+        <label for="exampleInputPassword1">再次输入密码</label>
+            {{ sign_obj.confirm_password }}{{ sign_obj.errors.confirm_password.0 }}
+      </div>
+
+      <div class="form-group">
+        <label for="exampleInputPassword1">邮箱</label>
+          {{ sign_obj.email }}{{ sign_obj.errors.email.0 }}{{ verify_data.message }}
+      </div>
+      <button type="submit" class="btn btn-primary a">提交</button>
+</form>
+
+
+
+
+
+
+
+
+
+    <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+    <script>
+
+        var all_tag = $('form').find('input');
+        function add() {
+            $.each(all_tag,function (i) {
+                if(i === 1 || i === 2){
+                    $(this).attr({'class':'form-control','type':'password'});
+                }else if(i === 0){
+                    $(this).attr({'class':'form-control','type':'text'})
+                }else
+                    $(this).attr({'class':'form-control','type':'email'})
+
+            })
+        }
+
+        add()
+    </script>
+</div>
+</body>
+</html>

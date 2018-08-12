@@ -1,0 +1,47 @@
+{% extends 'blogManagement/layout.html' %}
+
+    {% block articleCss %}
+        <style>
+            .pg-content-trouble .trouble-title-content{
+                background: white;
+
+            }
+            .pg-content-trouble .trouble-title-content .trouble-title{
+                font-size: 20px;
+                text-align: center;
+                margin-bottom: 0;
+
+            }
+            .pg-content-trouble .trouble-title-content .create-detail{
+                text-align: center;
+                font-size: 14px;
+            }
+        </style>
+    {% endblock %}
+
+{% block backendContent %}
+    <div class="pg-content-mainu">
+        <a href="">保障管理</a>/
+        <a href="">保障详情</a>
+    </div>
+    <div class="pg-content-trouble">
+        <div class="trouble-title-content">
+            <p class="trouble-title">{{ trouble_obj.title }}</p>
+            <div class="create-detail">
+                <span>{{ trouble_obj.user.username }}</span><span>{{ trouble_obj.create_time|date:'Y-m-d' }}</span>
+            </div>
+        </div>
+        <div class="trouble-detail">
+            <p>{{ trouble_obj.detail }}</p>
+        </div>
+
+        <div class="trouble-results">
+            <p>处理结果</p>
+            <p>{{ trouble_obj.dear_detail }}</p>
+            <p>{{ trouble_obj.handler.username }}</p>
+            <span>处理人</span>
+            <p>{{ trouble_obj.dear_time|date:'Y-m-d' }}</p>
+            <span>处理时间</span>
+        </div>
+    </div>
+{% endblock %}

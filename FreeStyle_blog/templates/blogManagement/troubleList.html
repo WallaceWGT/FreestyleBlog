@@ -1,0 +1,74 @@
+{% extends 'blogManagement/layout.html' %}
+
+
+{% block articleCss %}
+    <style>
+        .create-trouble-btn{
+            float: right;
+            margin: 3px 5px;
+        }
+        .create-trouble-btn a{
+            color: white;
+        }
+        .article-operate span{
+            width: 80px;
+        }
+        .article-operate span a{
+            color: white;
+        }
+    </style>
+
+
+{% endblock %}
+
+{% block backendContent %}
+    <div class="pg-content-mainu">
+        <a href="">报障管理</a>/
+        <a href="">报障列表</a>
+    </div>
+    <div class="trouble-list">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">报障标题</th>
+                    <th scope="col">状态</th>
+                    <th scope="col">创建时间</th>
+                    <th scope="col">处理时间</th>
+                    <th scope="col">处理人</th>
+                    <th scope="col">操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for trouble_obj in trouble_list %}
+                    <tr>
+                        <td><a href="">{{ trouble_obj.title }}</a></td>
+                        <td>{{ trouble_obj.get_handler_status_display }}</td>
+                        <td>{{ trouble_obj.create_time|date:'Y-m-d' }}</td>
+                        <td>{{ trouble_obj.dear_time|date:'Y-m-d' }}</td>
+                        <td>{{ trouble_obj.handler }}</td>
+                        <td class="article-operate">
+                        {% if blogSite == 'root' %}
+                            {% if trouble_obj.handler_status == 0 %}
+                                <span class="fa fa-mortar-board"><a href="/backendManagement/{{ blogSite }}/dearTrouble-{{ trouble_obj.id }}.html/">接单</a></span>
+                            {% elif trouble_obj.handler_status == 1 %}
+                                <span class="fa fa-mortar-board"><a href="/backendManagement/{{ blogSite }}/dearTrouble-{{ trouble_obj.id }}.html/">处理</a></span>
+                            {% else %}
+                                <span class="fa fa-mortar-board"><a href="/backendManagement/{{ blogSite }}/detailTrouble-{{ trouble_obj.id }}.html/">查看处理</a></span>
+                            {% endif %}
+                        {% elif trouble_obj.handler_status == 2 %}
+                                <span class="fa fa-mortar-board"><a href="/backendManagement/{{ blogSite }}/detailTrouble-{{ trouble_obj.id }}.html/">查看处理</a></span>
+                        {% endif %}
+                            <span class="fa fa-remove">删除</span>|
+                            <span class="fa fa-edit"><a href="/backendManagement/{{ blogSite }}/editTrouble-{{ trouble_obj.id }}.html/">编辑</a></span>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="create-trouble-btn btn btn-info">
+            <i class="fa fa-plus"></i>
+            <a href="/backendManagement/{{ blogSite }}/createTrouble.html/">创建保障单</a>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>FreeStyleBlog</title>
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'plugins/bootstrap/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'plugins/font-awesome/css/font-awesome.css' %}">
+    <style>
+        .hotline{
+            margin: 30px 0;
+        }
+        .login{
+            float: right;
+        }
+        {% block sty %}
+        {% endblock %}
+    </style>
+</head>
+<body>
+<div class="container">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+        <a class="navbar-brand" href="#">FreeStyle技术论坛</a>
+          {% block headline %}
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+          <li class="nav-item active">
+            <a class="nav-link" href="/mainBlog">全部<span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="/mainBlog/?choice=1">Python<span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/mainBlog/?choice=2">Linux</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="/mainBlog/?choice=3">OpenStack</a>
+          </li>
+            <li class="nav-item">
+            <a class="nav-link " href="/mainBlog/?choice=4">Golang</a>
+          </li>
+        <li class="nav-item">
+            <a class="nav-link " href="/logOut/">注销</a>
+          </li>
+        </ul>
+        <div id="loginAndSignLine">
+             <a href="/login.html">登入</a>
+             <a href="/sign.html">注册</a>
+        </div>
+          {% endblock %}
+      </div>
+        <div></div>
+    </nav>
+
+    {% block mainbody %}
+    {% endblock %}
+
+</div>
+
+<script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+<script src="{% static 'plugins/bootstrap/js/bootstrap.js' %}"></script>
+<script>
+    {% block upComment %}
+    {% endblock %}
+</script>
+</body>
+</html>

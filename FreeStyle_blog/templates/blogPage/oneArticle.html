@@ -1,0 +1,81 @@
+{% extends 'blogPage/personalHomePage.html' %}
+
+{% block articleContent %}
+
+    <div class="col-9">
+        <div>
+            <h2>{{ artical_obj.title }}</h2>
+            <p>{{ artical_obj.articledetail.content }}</p>
+        </div>
+        <div class="upAndComment">
+            <a href="" class="fa fa-thumbs-o-up articalUpDown"></a>
+            <a href="" class="fa fa-thumbs-o-down articalUpDown"></a>
+        </div>
+        <div>{{ artical_obj.create_time }} &emsp;
+            <a href="">{{ artical_obj.blog.title }}</a>
+            &emsp;评论(0)&emsp;阅读(0)
+        </div>
+        <div>
+            <img src="/{{ artical_obj.blog.user.avatar }}"class="headImage" alt="">
+            <span>{{ artical_obj.blog.user.username }}</span>
+            <span>aaaaaaaaaaaaaaaaaaaaa</span>
+            <span>本文版权作者所有，欢迎转载，且在的姐姐姐姐</span>
+        </div>
+        <div class="commentResponse">评论回复</div>
+
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                {% for pager in pager_obj.page_str %}
+                    {{ pager | safe }}
+                {% endfor %}
+            </ul>
+        </nav>
+
+        <div>
+            <textarea name="content" id="content"></textarea>
+        </div>
+        <span>提交</span>
+    </div>
+
+{% endblock %}
+
+{% block articleCss %}
+
+    <style>
+        .upAndComment{
+            height: 60px;
+            color: #0062cc;
+            font-size: 30px;
+        }
+        .articalUpDown{
+            display: inline-block;
+            width: 40px;
+            height: 50px;
+            line-height: 50px;
+            border: #9fcdff 1px solid;
+        }
+        .commentResponse{
+            height: 160px;
+            background: #20c997;
+        }
+        .headImage{
+            width: 60px;
+            height: 60px;
+        }
+    </style>
+
+{% endblock %}
+
+<script>
+        $(function () {
+            initKindEditor();
+        });
+        function initKindEditor() {
+           var kind = KindEditor.create('#content',{
+               width:'100%',
+               height:'200px',
+               minWidth:200,
+               minHeight:200
+           })
+        }
+</script>

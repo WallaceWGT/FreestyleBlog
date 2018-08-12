@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'plugins/bootstrap/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'plugins/font-awesome/css/font-awesome.css' %}">
+
+    <style>
+        .handLineAll{
+            background: darkseagreen;
+            height: 70px;
+            width: 90%;
+            position: relative;
+        }
+        .handlineBlog{
+            font-size: 30px;
+            line-height: 50px;
+            width: 30%;
+            float: left;
+        }
+        .handlineTheme{
+            width: 40%;
+            float: left;
+            margin: 20px auto;
+
+        }
+        .handlineOperate{
+            width: 30%;
+            float: left;
+
+        }
+        .operateArguement{
+            float: right;
+            position: relative;
+            bottom: -40px;
+
+        }
+        .personalBody{
+            clear: both;
+        }
+        .article_content{
+            height: 60px;
+            overflow: hidden;
+            font-size: 14px;
+        }
+
+    </style>
+    {% block articleCss %}
+        {% endblock %}
+</head>
+<body>
+
+    <div class="container handLineAll">
+        <div class="handlineBlog">
+            <p>{{ blog_obj.site }}</p>
+        </div>
+        <div class="handlineTheme"><p>时间是最好的检查官,因为从来不停止</p>
+        </div>
+        <div class="handlineOperate">
+            <div class="operateArguement">
+                <a href="/mainBlog/">首页</a>
+                <a href="/personalHomePage/{{ login_obj.blog.site }}/">个人首页</a>
+                <a href="/backendManagement/{{ login_obj.blog.site }}/">管理</a>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="container personalBody">
+        <div class="row">
+            <div class="col-3">
+
+            <div class="card" style="width: 247.5px;">
+                 <div class="card-body">
+                     <h5 class="card-title">公告</h5>
+                     <ul>
+                         <li>昵称: </li>
+                         <li>粉丝: </li>
+                         <li>邮箱：</li>
+                     </ul>
+                     <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                  </div>
+            </div>
+
+            <div class="card" style="width: 247.5px;">
+                <div class="card-body">
+                    <h5 class="card-title">标签</h5>
+                    <ul>
+                        {% for tag in blog_obj.tag_set.all %}
+                            <li><a href="/personalHomePage/{{ blog_obj.site }}/tag/{{ tag.nid }}">{{ tag.title }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card" style="width: 247.5px;">
+                <div class="card-body">
+                    <h5 class="card-title">分类
+                    </h5>
+                    <ul>
+                        {% for category in blog_obj.category_set.all %}
+                        <li><a href="/personalHomePage/{{ blog_obj.site }}/category/{{ category.nid }}" class="card-link">{{ category.title }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card" style="width: 247.5px;">
+                 <div class="card-body">
+                     <h5 class="card-title">时间</h5>
+                     <ul>
+                         <li><a href="#" class="card-link">Card link</a></li>
+                         <li><a href="#" class="card-link">Another link</a></li>
+                     </ul>
+                 </div>
+            </div>
+            </div>
+
+
+        {% block articleContent %}
+            <div class="col-9">
+
+                {% for artical_obj in all_artical_list %}
+                <a href="/personalHomePage/{{ artical_obj.blog.site }}/{{ artical_obj.nid }}/">{{ artical_obj.title }}</a>
+                <div class="article_content">
+                    <p>{{ artical_obj.articledetail.content }}</p>
+                </div>
+                <div>
+                    <span>{{ artical_obj.create_time }}</span>
+                    <span>阅读(0)</span>
+                    <span><a href="">评论</a>(0)</span>
+                    <span><a href="">点赞</a>(0)</span>
+                </div>
+            {% endfor %}
+
+                <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    {% for pager in pager_obj.page_str %}
+                        {{ pager | safe }}
+                {% endfor %}
+                </ul>
+                </nav>
+
+            </div>
+        {% endblock %}
+        </div>
+    </div>
+
+
+
+<script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+<script src="{% static 'plugins/bootstrap/js/bootstrap.js' %}"></script>
+<script src="{% static 'plugins/kindeditor-4.1.10/kindeditor-all.js' %}"></script>
+{% block articalJs %}
+{% endblock %}
+</body>
+</html>

@@ -1,0 +1,41 @@
+{% extends 'blogManagement/layout.html' %}
+
+{% block backendContent %}
+        <div class="pg-content-mainu">
+            <a href="">报障管理</a>/
+            <a href="">报障处理</a>
+        </div>
+        <div class="pg-content-search">
+            <div>
+                <p>标题</p>
+                <p>{{ troubleObj.title }}</p>
+            </div>
+            <div>
+                <p>内容</p>
+                <p>{{ troubleObj.detail }}</p>
+            </div>
+            <div>
+                <form action="backendManagement/{{ blogSite }}/dearTrouble-{{ troubleObj.id }}.html/" method="post">
+                    {{ dearFormObj.dear_detail }}
+                    <input type="submit">
+                </form>
+            </div>
+        </div>
+
+{% endblock %}
+
+{% block articalJs %}
+    <script>
+        $(function () {
+            initKindEditor();
+        });
+        function initKindEditor() {
+           var kind = KindEditor.create('#dear-trouble',{
+               width:'100%',
+               height:'200px',
+               minWidth:200,
+               minHeight:200
+           })
+        }
+    </script>
+{% endblock %}
